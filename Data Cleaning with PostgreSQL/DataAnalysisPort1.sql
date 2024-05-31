@@ -1,5 +1,5 @@
 
-
+-- Creat order table 
 CREATE TABLE public.orders (
     order_no VARCHAR ,
     order_date DATE,
@@ -24,17 +24,16 @@ CREATE TABLE public.orders (
     shipping_cost NUMERIC(10, 2),
     total NUMERIC(10, 2)
 );
-
+-- Overview of data
 select * from orders;
 -- describe data
 SELECT column_name, data_type, character_maximum_length, is_nullable
 FROM information_schema.columns
-WHERE table_name = 'orders'
-	;
---Data cleaning for orders
-UPDATE orders
-SET order_date = TO_DATE(order_date, 'MM/DD/YYYY')
+WHERE table_name = 'orders';
 
+--> Same check for products and account_managers, they have been ready to explore
+
+--Data cleaning for orders
 SELECT COUNT(*)
 FROM orders
 WHERE order_no IS NULL;
@@ -44,7 +43,7 @@ SELECT order_no, COUNT(order_no)
 FROM orders
 GROUP BY order_no
 HAVING COUNT(order_no)>1;
--- it is not actual duplicate
+-- Check if it is an actual duplicate
 SELECT * 
 FROM orders
 WHERE order_no = '5768-2'or order_no= '6159-2';
